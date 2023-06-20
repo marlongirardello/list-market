@@ -8,13 +8,12 @@ import { MarketList } from '../../model/marketlist';
 })
 export class MarketlistComponent implements DoCheck {
 
-  public marketList: Array<MarketList> = [
-  ];
+  public marketList: Array<MarketList> = JSON.parse(localStorage.getItem("list") || '[]');
 
   constructor () { }
 
   ngDoCheck() {
-    this.marketList.sort( (first, last) => Number(first.checked) - Number(last.checked));
+    this.setLocalStorage();
   }
 
   public setEmitMarketList (event: string) {
@@ -43,4 +42,10 @@ export class MarketlistComponent implements DoCheck {
     }
   }
 
+  public setLocalStorage() {
+    if(this.marketList) {
+      this.marketList.sort( (first, last) => Number(first.checked) - Number(last.checked));
+      localStorage.setItem("list", JSON.stringify(this.marketList))
+    }
+  }
 }
