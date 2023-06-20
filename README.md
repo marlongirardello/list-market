@@ -28,4 +28,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ##Visualization
 
-![image] 
+![image] (https://github.com/marlongirardello/list-market/blob/8585f23cad13f39d9e9dae57d78e23929bcdf36a/src/assets/img/MarketList.JPG)
