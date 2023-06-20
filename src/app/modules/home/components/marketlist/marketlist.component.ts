@@ -1,10 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, DoCheck} from '@angular/core';
+import { MarketList } from '../../model/marketlist';
 
 @Component({
   selector: 'app-marketlist',
   templateUrl: './marketlist.component.html',
   styleUrls: ['./marketlist.component.scss']
 })
-export class MarketlistComponent {
+export class MarketlistComponent implements DoCheck {
+
+  public marketList: Array<MarketList> = [
+  ];
+
+  constructor () { }
+
+  ngDoCheck() {
+    this.marketList.sort( (first, last) => Number(first.checked) - Number(last.checked));
+  }
+
+  public setEmitMarketList (event: string) {
+    this.marketList.push({itemList: event, checked: false})
+  }
+
+  public deleteItemMarketList(event: number) {
+    this.marketList.splice(event,1);
+  }
+
+  public deleteAllMarketList() {
+    const confirm = window.confirm("Deleta all?");
+
+    if(confirm === true) {
+      this.marketList = [];
+    }
+  }
+
+  public validationInput (event: string, index: number) {
+    if(!event.length) {
+      const confirm = window.confirm("Empty item, do you want to delete it?");
+
+      if(confirm) {
+        this.deleteItemMarketList(index);
+      }
+    }
+  }
 
 }

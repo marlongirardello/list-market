@@ -1,1 +1,13 @@
-<p>marketlist works!</p>
+<section [ngClass]="{'loading': !marketList.length}">
+  <ul *ngIf="marketList.length">
+    <li *ngFor="let item of marketList; let i = index">
+      <input type="checkbox" [(ngModel)]="item.checked">
+      <input type="text" (keyup)="validationInput(item.itemList, i)" [(ngModel)]="item.itemList" [ngClass]="{'checked': item.checked}">
+      <button (click)="deleteItemMarketList(i)">
+        <img src="assets/icons/icon-trash.svg" alt="Delete Item List">
+      </button>
+    </li>
+  </ul>
+</section>
+<app-marketlist-input-add-itens (emitItemMarketList)="setEmitMarketList($event)"></app-marketlist-input-add-itens>
+<app-marketlist-button-delete-all *ngIf="marketList.length" (click) = "deleteAllMarketList()"></app-marketlist-button-delete-all>
